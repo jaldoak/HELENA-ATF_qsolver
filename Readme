@@ -10,10 +10,6 @@ Run
 With plot :
 ./runhel namelistfile
 
-Without plot :
-./runhel_noplot namelistfile
-
-
 --------------------------------
 
 isotropic qsolver added
