@@ -1,0 +1,41 @@
+Source File 
+hel12a.f        : Original Helena file 
+hel12a_double.f : Helena+ATF
+
+Compile Helena 
+$make
+
+
+Run
+With plot :
+./runhel namelistfile
+
+Without plot :
+./runhel_noplot namelistfile
+
+
+--------------------------------
+
+isotropic qsolver added
+To run; set IGAM=5 and use VF2 for q profile input
+B -> A*B.
+NMESH is number of iterations for qsolver loop
+
+Example namelist files:
+F2_example     (isotropic ballooning scenario with F^2 input)
+q_example      (the same ballooning scenario with safety factor input)
+
+anisotropic q-sovler does not work, but example inputs are included for testing
+anisF2_example (an anisotropic ballooning scenario with F^2 input)
+anisq_example  (the same ballooning scenario with safety factor input [DOES NOT YET WORK])
+
+q-solver tolerance currently set to max(|[IA,IB,IC,IB1,IB2,IB3]_new - [IA,IB,IC,IB1,IB2,IB3]_old|^2) <= 10^-6.
+q-solver can converge to ~10^-12 if more accuracy is needed, but this is slow.
+To change tolerance, make changes to line 645 [as of 18-April-2025]
+645 >>      IF ((RES_CONV/DSQRT(NR-1.D0)).LT.1.D-6) THEN
+646 >>        WRITE(*,*)
+647 >>        WRITE(*,*) 'Q-SOLVER FLUX INTEGRALS CONVERGED:', 
+648 >>     >    RES_CONV/DSQRT(NR-1.D0)
+
+Matlab script qsolver_plot.m will make some plots with the example files
+Change the directories to your own paths for MHD_scripts-master and HELENA+ATF (for the q-solver version).
